@@ -1,0 +1,126 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos base do corpo da página. */
+body {
+    font-size: 100%;            /* ponto de referência para as unidades rem */
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;  /* fundo muito claro */
+    color: #333;                /* texto escuro */
+    line-height: 1.6;
+}
+
+/* Cabeçalho. */
+header {
+    background-color: black;
+    color: white;       /* texto do cabeçalho legível sobre o fundo preto */
+    padding: 1.5em 0;   /* espaçamento vertical interno (topo e fundo) */
+    text-align: center;
+}
+
+/* Menu de navegação: remover marcadores e centrar a lista. */
+header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+/* Itens lado a lado na mesma linha, com margens horizontais. */
+header nav li {
+    display: inline-block;
+    margin: 0em 0.8em;
+}
+
+/* Links do menu de navegação. */
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+header nav a:hover {
+    color: rgb(90, 195, 178);
+    text-decoration: underline;
+}
+
+/* Conteúdo principal: Grid Layout.
+   Duas linhas — 1ª linha com duas colunas, 2ª linha com uma só. */
+main {
+    padding: 1.5em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5em;
+}
+
+/* Cada secção de conteúdo. */
+section {
+    background-color: white;
+    padding: 1em;
+    border: 1px solid #ccc;  /* borda fina de cor clara */
+    border-radius: 4px;      /* cantos arredondados com raio pequeno */
+}
+
+/* Título principal. */
+h1 {
+    color: rgb(90, 195, 178);  /* cor de destaque */
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+/* Subtítulos. */
+h2,
+h3 {
+    color: rgb(90, 195, 178);  /* mesma cor de destaque do h1 */
+    margin-bottom: 0.625em;
+}
+
+/* Imagens e vídeos responsivos e centrados. */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;  /* 1em topo/fundo, auto à esquerda/direita */
+}
+
+/* Tabelas. */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+th,
+td {
+    border: 1px solid #ddd;  /* borda fina e clara */
+    padding: 0.5em;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+/* Imagens dentro da tabela: tamanho pequeno fixo e centradas. */
+table img {
+    width: 3.5rem;
+    margin: 0 auto;
+}
+
+/* Rodapé. */
+footer {
+    background-color: #333;
+    color: #bbb;
+    text-align: center;
+    padding: 1em;
+}
+
+/* Ecrãs com largura mínima de 768px: main em duas colunas iguais. */
+@media (min-width: 768px) {
+    main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
