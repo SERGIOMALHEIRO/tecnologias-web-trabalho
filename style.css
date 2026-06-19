@@ -65,6 +65,11 @@ section {
     border-radius: 4px;      /* cantos arredondados com raio pequeno */
 }
 
+/* Secção que ocupa a linha inteira (2ª linha do grid). */
+section.largura-total {
+    grid-column: 1 / -1;
+}
+
 /* Título principal. */
 h1 {
     color: rgb(90, 195, 178);  /* cor de destaque */
