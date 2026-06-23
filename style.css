@@ -109,6 +109,15 @@ td {
     font-size: 0.9em;
 }
 
+/* Iframe de vídeo (YouTube): responsivo e centrado. */
+.video-frame {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;  /* mantém a proporção do vídeo */
+    margin: 1em auto;
+    border: none;
+}
+
 /* Imagens dentro da tabela: tamanho pequeno fixo e centradas. */
 table img {
     width: 3.5rem;
@@ -128,4 +137,112 @@ footer {
     main {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+/* ===================================================================
+   Página de conta (login / registo / perfil)
+   =================================================================== */
+
+/* O main da conta não usa grid — cartão único centrado. */
+main.conta-main {
+    display: block;
+    padding: 1.5em;
+}
+
+/* Esconder ecrãs inativos. */
+.escondido {
+    display: none;
+}
+
+/* Cartão de conta centrado, com largura máxima. */
+.conta-card {
+    max-width: 420px;
+    margin: 1em auto;
+}
+
+/* Formulários em coluna. */
+.conta-card form {
+    display: flex;
+    flex-direction: column;
+}
+
+.conta-card label {
+    margin-top: 0.6em;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.conta-card input {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+/* Botões. */
+.btn {
+    margin-top: 0.8em;
+    padding: 0.6em;
+    background-color: rgb(90, 195, 178);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(70, 170, 154);
+}
+
+/* Botão de logout em tom de alerta. */
+.btn-logout {
+    background-color: #e8765a;
+    width: 100%;
+}
+
+.btn-logout:hover {
+    background-color: #d3604a;
+}
+
+/* Mensagens de erro de validação. */
+.erro {
+    color: #c0392b;
+    font-size: 0.9em;
+    min-height: 1.2em;
+    margin-top: 0.5em;
+}
+
+/* Cabeçalho do perfil (saudação + foto). */
+.perfil-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.perfil-foto {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0;
+    border: 2px solid rgb(90, 195, 178);
+}
+
+/* Lista de dados do perfil (rótulo + valor em duas colunas). */
+.perfil-dados {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.4em 1em;
+    margin: 1em 0;
+}
+
+.perfil-dados dt {
+    font-weight: bold;
+}
+
+.perfil-dados dd {
+    margin: 0;
 }
