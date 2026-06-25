@@ -249,5 +249,134 @@ document.getElementById("ir-login").addEventListener("click", function () {
     mostrar(loginView);
 });
 
+// ===================================================================
+// Edição do perfil (funcionalidade extra)
+// ===================================================================
+
+const editarForm = document.getElementById("editar-form");
+const dadosPerfil = document.querySelector(".perfil-dados");
+const botaoEditar = document.getElementById("editar-perfil");
+
+// Mostra o formulário de edição já preenchido com os dados atuais.
+document.getElementById("editar-perfil").addEventListener("click", function () {
+    const utilizador = encontrarUtilizador(localStorage.getItem(CHAVE_LOGADO));
+    if (!utilizador) {
+        return;
+    }
+    document.getElementById("edit-nome").value = utilizador.nome;
+    document.getElementById("edit-email").value = utilizador.email;
+    document.getElementById("edit-telemovel").value = utilizador.telemovel;
+    document.getElementById("edit-nif").value = utilizador.nif;
+    document.getElementById("edit-morada").value = utilizador.morada;
+    document.getElementById("editar-erro").textContent = "";
+
+    dadosPerfil.classList.add("escondido");
+    botaoEditar.classList.add("escondido");
+    editarForm.classList.remove("escondido");
+});
+
+// Cancela a edição e volta a mostrar os dados.
+document.getElementById("cancelar-edicao").addEventListener("click", function () {
+    editarForm.classList.add("escondido");
+    dadosPerfil.classList.remove("escondido");
+    botaoEditar.classList.remove("escondido");
+});
+
+// Guarda as alterações do perfil.
+document.getElementById("editar-form").addEventListener("submit", function (evento) {
+    evento.preventDefault();
+    const erro = document.getElementById("editar-erro");
+    erro.textContent = "";
+
+    const nome = document.getElementById("edit-nome").value.trim();
+    const email = document.getElementById("edit-email").value.trim();
+    const telemovel = document.getElementById("edit-telemovel").value.trim();
+    const nif = document.getElementById("edit-nif").value.trim();
+    const morada = document.getElementById("edit-morada").value.trim();
+    const ficheiroFoto = document.getElementById("edit-foto").files[0];
+
+    // Validações (reutiliza as mesmas regras do registo).
+    if (!nome || !email || !telemovel || !nif || !morada) {
+        erro.textContent = "Preencha todos os campos.";
+        return;
+    }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        erro.textContent = "Email inválido.";
+        return;
+    }
+    if (!validarNifPortugues(nif)) {
+        erro.textContent = "NIF português inválido.";
+        return;
+    }
+    if (!validarTelemovelPortugues(telemovel)) {
+        erro.textContent = "Número de telemóvel português inválido.";
+        return;
+    }
+
+    // Atualiza o utilizador no array de registados.
+    const lista = obterUtilizadores();
+    const utilizador = lista.find(function (u) {
+        return u.username === localStorage.getItem(CHAVE_LOGADO);
+    });
+    utilizador.nome = nome;
+    utilizador.email = email;
+    utilizador.telemovel = telemovel;
+    utilizador.nif = nif;
+    utilizador.morada = morada;
+
+    function terminar() {
+        guardarUtilizadores(lista);
+        preencherPerfil(utilizador);
+        editarForm.classList.add("escondido");
+        dadosPerfil.classList.remove("escondido");
+        botaoEditar.classList.remove("escondido");
+    }
+
+    // Se foi escolhida nova foto, lê-a antes de guardar.
+    if (ficheiroFoto) {
+        const leitor = new FileReader();
+        leitor.onload = function () {
+            utilizador.foto = leitor.result;
+            terminar();
+        };
+        leitor.readAsDataURL(ficheiroFoto);
+    } else {
+        terminar();
+    }
+});
+
+// ===================================================================
+// Botão desativado enquanto há campos obrigatórios por preencher
+// (funcionalidade extra de prevenção de erros)
+// ===================================================================
+
+// Ativa/desativa o botão de submit de um formulário consoante todos os
+// campos indicados estejam preenchidos.
+function ligarBotaoAosCampos(idFormulario, idsCampos) {
+    const form = document.getElementById(idFormulario);
+    const botao = form.querySelector("button[type=submit]");
+    const campos = idsCampos.map(function (id) {
+        return document.getElementById(id);
+    });
+
+    function atualizar() {
+        const todosPreenchidos = campos.every(function (campo) {
+            return campo.value.trim() !== "";
+        });
+        botao.disabled = !todosPreenchidos;
+    }
+
+    campos.forEach(function (campo) {
+        campo.addEventListener("input", atualizar);
+    });
+    atualizar();  // estado inicial
+}
+
+ligarBotaoAosCampos("login-form", ["login-username", "login-password"]);
+ligarBotaoAosCampos("registo-form", [
+    "reg-username", "reg-password", "reg-nome", "reg-email",
+    "reg-telemovel", "reg-nif", "reg-morada"
+]);
+
 // Arranque.
 ecraInicial();

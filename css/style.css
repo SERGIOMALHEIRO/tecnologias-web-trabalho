@@ -196,6 +196,21 @@ main.conta-main {
     background-color: rgb(70, 170, 154);
 }
 
+/* Botão desativado (campos obrigatórios por preencher). */
+.btn:disabled {
+    background-color: #bdbdbd;
+    cursor: not-allowed;
+}
+
+/* Botão secundário (ex.: Cancelar edição). */
+.btn-secundario {
+    background-color: #888;
+}
+
+.btn-secundario:hover {
+    background-color: #6f6f6f;
+}
+
 /* Botão de logout em tom de alerta. */
 .btn-logout {
     background-color: #e8765a;
@@ -204,6 +219,32 @@ main.conta-main {
 
 .btn-logout:hover {
     background-color: #d3604a;
+}
+
+/* Botão de remover (painel de administração). */
+.btn-remover {
+    margin-top: 0;
+    padding: 0.3em 0.8em;
+    background-color: #e8765a;
+    font-size: 0.85em;
+}
+
+.btn-remover:hover {
+    background-color: #d3604a;
+}
+
+/* Foto do utilizador na tabela de administração. */
+.admin-foto {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+/* Células do painel de administração centradas verticalmente. */
+#tabela-utilizadores td {
+    vertical-align: middle;
 }
 
 /* Mensagens de erro de validação. */

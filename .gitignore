@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+# Ficheiros de instruções (não fazem parte do projeto)
+instrucoes_download_vscode.docx
+instrucoes_git_vscode.pdf
