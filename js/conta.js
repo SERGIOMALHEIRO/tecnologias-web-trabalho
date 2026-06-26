@@ -240,11 +240,13 @@ document.getElementById("logout").addEventListener("click", function () {
 });
 
 document.getElementById("ir-registo").addEventListener("click", function () {
+    document.getElementById("registo-form").reset();
     document.getElementById("registo-erro").textContent = "";
     mostrar(registoView);
 });
 
 document.getElementById("ir-login").addEventListener("click", function () {
+    document.getElementById("login-form").reset();
     document.getElementById("login-erro").textContent = "";
     mostrar(loginView);
 });
