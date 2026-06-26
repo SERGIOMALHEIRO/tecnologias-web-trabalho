@@ -78,6 +78,10 @@
             <h2 id="perfil-saudacao">Olá</h2>
             <img id="perfil-foto" class="perfil-foto" src="" alt="Foto de perfil">
         </div>
+
+        <!-- Aviso de sucesso após guardar a edição do perfil. -->
+        <p id="perfil-sucesso" class="sucesso escondido">Perfil gravado com sucesso!</p>
+
         <dl class="perfil-dados">
             <dt>Nome:</dt>      <dd id="perfil-nome"></dd>
             <dt>Email:</dt>     <dd id="perfil-email"></dd>
@@ -106,6 +110,8 @@
 
             <label for="edit-foto">Mudar foto de perfil:</label>
             <input type="file" id="edit-foto" name="foto" accept="image/*">
+            <button type="button" class="btn btn-secundario" id="limpar-foto">Limpar Foto</button>
+            <p class="info escondido" id="foto-info">A foto será removida ao guardar.</p>
 
             <p class="erro" id="editar-erro"></p>
 

@@ -257,6 +257,9 @@ const editarForm = document.getElementById("editar-form");
 const dadosPerfil = document.querySelector(".perfil-dados");
 const botaoEditar = document.getElementById("editar-perfil");
 
+// Indica se o utilizador pediu para remover a foto atual ao guardar.
+let removerFoto = false;
+
 // Mostra o formulário de edição já preenchido com os dados atuais.
 document.getElementById("editar-perfil").addEventListener("click", function () {
     const utilizador = encontrarUtilizador(localStorage.getItem(CHAVE_LOGADO));
@@ -269,10 +272,31 @@ document.getElementById("editar-perfil").addEventListener("click", function () {
     document.getElementById("edit-nif").value = utilizador.nif;
     document.getElementById("edit-morada").value = utilizador.morada;
     document.getElementById("editar-erro").textContent = "";
+    document.getElementById("perfil-sucesso").classList.add("escondido");
+
+    // Repõe o estado da foto sempre que se abre a edição.
+    removerFoto = false;
+    document.getElementById("edit-foto").value = "";
+    document.getElementById("foto-info").classList.add("escondido");
 
     dadosPerfil.classList.add("escondido");
     botaoEditar.classList.add("escondido");
     editarForm.classList.remove("escondido");
+});
+
+// Botão "Limpar Foto": marca a foto para remoção ao guardar.
+document.getElementById("limpar-foto").addEventListener("click", function () {
+    removerFoto = true;
+    document.getElementById("edit-foto").value = "";  // descarta ficheiro escolhido
+    document.getElementById("foto-info").classList.remove("escondido");
+});
+
+// Se escolher um ficheiro novo, cancela o pedido de remoção da foto.
+document.getElementById("edit-foto").addEventListener("change", function () {
+    if (this.files[0]) {
+        removerFoto = false;
+        document.getElementById("foto-info").classList.add("escondido");
+    }
 });
 
 // Cancela a edição e volta a mostrar os dados.
@@ -330,9 +354,19 @@ document.getElementById("editar-form").addEventListener("submit", function (even
         editarForm.classList.add("escondido");
         dadosPerfil.classList.remove("escondido");
         botaoEditar.classList.remove("escondido");
+
+        // Mostra o aviso de sucesso e esconde-o automaticamente após 3s.
+        const sucesso = document.getElementById("perfil-sucesso");
+        sucesso.classList.remove("escondido");
+        setTimeout(function () {
+            sucesso.classList.add("escondido");
+        }, 3000);
     }
 
-    // Se foi escolhida nova foto, lê-a antes de guardar.
+    // Tratamento da foto:
+    // 1) novo ficheiro escolhido -> usa-o;
+    // 2) pediu "Limpar Foto" -> remove a foto (foto = "");
+    // 3) caso contrário -> mantém a foto atual.
     if (ficheiroFoto) {
         const leitor = new FileReader();
         leitor.onload = function () {
@@ -341,6 +375,9 @@ document.getElementById("editar-form").addEventListener("submit", function (even
         };
         leitor.readAsDataURL(ficheiroFoto);
     } else {
+        if (removerFoto) {
+            utilizador.foto = "";
+        }
         terminar();
     }
 });

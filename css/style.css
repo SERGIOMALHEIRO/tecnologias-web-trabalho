@@ -149,9 +149,11 @@ main.conta-main {
     padding: 1.5em;
 }
 
-/* Esconder ecrãs inativos. */
+/* Esconder elementos inativos. Usa !important para vencer regras mais
+   específicas (ex.: .conta-card form { display: flex }) e garantir que
+   um elemento com a classe "escondido" fica mesmo oculto. */
 .escondido {
-    display: none;
+    display: none !important;
 }
 
 /* Cartão de conta centrado, com largura máxima. */
@@ -253,6 +255,26 @@ main.conta-main {
     font-size: 0.9em;
     min-height: 1.2em;
     margin-top: 0.5em;
+}
+
+/* Nota informativa (ex.: foto será removida ao guardar). */
+.info {
+    color: #555;
+    font-size: 0.85em;
+    font-style: italic;
+    margin-top: 0.3em;
+}
+
+/* Mensagem de sucesso (ex.: perfil gravado). */
+.sucesso {
+    color: #2e7d32;
+    background-color: #e6f4ea;
+    border: 1px solid #a5d6a7;
+    border-radius: 4px;
+    padding: 0.5em 0.8em;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 0.5em 0;
 }
 
 /* Cabeçalho do perfil (saudação + foto). */
