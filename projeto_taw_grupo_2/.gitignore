@@ -1,0 +1,16 @@
+# Dependências (reconstruídas com "npm install" — nunca vão para o Git)
+node_modules/
+
+# Variáveis de ambiente com segredos (chaves, passwords)
+.env
+
+# Script de testes (uso local, não faz parte da entrega)
+testes.sh
+
+# Logs
+npm-debug.log*
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

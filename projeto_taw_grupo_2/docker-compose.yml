@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    container_name: express-app
+    # Mapeia a porta 3000 do container para a porta 3000 da sua máquina
+    ports:
+      - "3000:3000"
+    volumes:
+      # Monta o código local para que as alterações se reflitam no container (Live Reload)
+      - .:/usr/src/app
+      # Evita que a pasta node_modules local sobrescreva a do container
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongodb
+    environment:
+      # Variável que o Express vai ler para se ligar à base de dados
+      MONGO_URI: mongodb://mongodb:27017/projeto-db
+      PORT: 3000
+      # Chave secreta para assinar/verificar os tokens JWT.
+      # O valor real está no ficheiro .env (NÃO versionado). Aqui fica só a referência.
+      JWT_SECRET: ${JWT_SECRET}
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-db-etapa2
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+    command: mongod --quiet
+
+volumes:
+  mongo-data:
