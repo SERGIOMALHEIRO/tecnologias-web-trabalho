@@ -28,6 +28,11 @@ exports.register = async (req, res) => {
         // Encriptar a password ANTES de guardar (nunca em texto simples)
         const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
+        // Se a base de dados ainda não tiver utilizadores, o PRIMEIRO a registar-se
+        // fica automaticamente como administrador (bootstrap do primeiro admin).
+        const totalUtilizadores = await User.countDocuments();
+        const primeiroUtilizador = totalUtilizadores === 0;
+
         // Criar o novo utilizador
         const newUser = new User({
             username,
@@ -37,8 +42,8 @@ exports.register = async (req, res) => {
             telemovel,
             nif,
             morada,
-            fotografia
-            // flag isAdmin é 'false' por defeito (definido no Schema)
+            fotografia,
+            isAdmin: primeiroUtilizador // 1º utilizador -> admin; restantes -> false
         });
 
         // Guardar no MongoDB o novo utilizador.
@@ -48,8 +53,10 @@ exports.register = async (req, res) => {
 
         res.status(201).json({
             success: true,
-            message: 'Utilizador registado com sucesso.',
-            user: { username: newUser.username, email: newUser.email, nome: newUser.nome }
+            message: primeiroUtilizador
+                ? 'Primeiro utilizador registado como ADMINISTRADOR.'
+                : 'Utilizador registado com sucesso.',
+            user: { username: newUser.username, email: newUser.email, nome: newUser.nome, isAdmin: newUser.isAdmin }
         });
 
     } catch (error) {
