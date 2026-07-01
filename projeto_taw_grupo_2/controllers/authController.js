@@ -98,11 +98,22 @@ exports.login = async (req, res) => {
         });
 
         // Resposta de Sucesso
+        // Devolve o utilizador (sem a password) para o frontend preencher o perfil.
         res.status(200).json({
             success: true,
             message: 'Login bem-sucedido.',
             token, // token deve ser guardado no frontend no localStorage
-            user: { username: user.username, isAdmin: user.isAdmin, nome: user.nome }
+            user: {
+                id: user._id,
+                username: user.username,
+                isAdmin: user.isAdmin,
+                nome: user.nome,
+                email: user.email,
+                telemovel: user.telemovel,
+                nif: user.nif,
+                morada: user.morada,
+                fotografia: user.fotografia
+            }
         });
 
     } catch (error) {

@@ -1,0 +1,324 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos base do corpo da página. */
+body {
+    font-size: 100%;            /* ponto de referência para as unidades rem */
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;  /* fundo muito claro */
+    color: #333;                /* texto escuro */
+    line-height: 1.6;
+}
+
+/* Cabeçalho. */
+header {
+    background-color: black;
+    color: white;       /* texto do cabeçalho legível sobre o fundo preto */
+    padding: 1.5em 0;   /* espaçamento vertical interno (topo e fundo) */
+    text-align: center;
+}
+
+/* Menu de navegação: remover marcadores e centrar a lista. */
+header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+/* Itens lado a lado na mesma linha, com margens horizontais. */
+header nav li {
+    display: inline-block;
+    margin: 0em 0.8em;
+}
+
+/* Links do menu de navegação. */
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+header nav a:hover {
+    color: rgb(90, 195, 178);
+    text-decoration: underline;
+}
+
+/* Conteúdo principal: Grid Layout.
+   Duas linhas — 1ª linha com duas colunas, 2ª linha com uma só. */
+main {
+    padding: 1.5em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5em;
+}
+
+/* Cada secção de conteúdo. */
+section {
+    background-color: white;
+    padding: 1em;
+    border: 1px solid #ccc;  /* borda fina de cor clara */
+    border-radius: 4px;      /* cantos arredondados com raio pequeno */
+}
+
+/* Secção que ocupa a linha inteira (2ª linha do grid). */
+section.largura-total {
+    grid-column: 1 / -1;
+}
+
+/* Título principal. */
+h1 {
+    color: rgb(90, 195, 178);  /* cor de destaque */
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+/* Subtítulos. */
+h2,
+h3 {
+    color: rgb(90, 195, 178);  /* mesma cor de destaque do h1 */
+    margin-bottom: 0.625em;
+}
+
+/* Imagens e vídeos responsivos e centrados. */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;  /* 1em topo/fundo, auto à esquerda/direita */
+}
+
+/* Tabelas. */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+th,
+td {
+    border: 1px solid #ddd;  /* borda fina e clara */
+    padding: 0.5em;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+/* Iframe de vídeo (YouTube): responsivo e centrado. */
+.video-frame {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;  /* mantém a proporção do vídeo */
+    margin: 1em auto;
+    border: none;
+}
+
+/* Imagens dentro da tabela: tamanho pequeno fixo e centradas. */
+table img {
+    width: 3.5rem;
+    margin: 0 auto;
+}
+
+/* Rodapé. */
+footer {
+    background-color: #333;
+    color: #bbb;
+    text-align: center;
+    padding: 1em;
+}
+
+/* Ecrãs com largura mínima de 768px: main em duas colunas iguais. */
+@media (min-width: 768px) {
+    main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===================================================================
+   Página de conta (login / registo / perfil)
+   =================================================================== */
+
+/* O main da conta não usa grid — cartão único centrado. */
+main.conta-main {
+    display: block;
+    padding: 1.5em;
+}
+
+/* Esconder elementos inativos. Usa !important para vencer regras mais
+   específicas (ex.: .conta-card form { display: flex }) e garantir que
+   um elemento com a classe "escondido" fica mesmo oculto. */
+.escondido {
+    display: none !important;
+}
+
+/* Cartão de conta centrado, com largura máxima. */
+.conta-card {
+    max-width: 420px;
+    margin: 1em auto;
+}
+
+/* Formulários em coluna. */
+.conta-card form {
+    display: flex;
+    flex-direction: column;
+}
+
+.conta-card label {
+    margin-top: 0.6em;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.conta-card input {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+/* Botões. */
+.btn {
+    margin-top: 0.8em;
+    padding: 0.6em;
+    background-color: rgb(90, 195, 178);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(70, 170, 154);
+}
+
+/* Botão desativado (campos obrigatórios por preencher). */
+.btn:disabled {
+    background-color: #bdbdbd;
+    cursor: not-allowed;
+}
+
+/* Botão secundário (ex.: Cancelar edição). */
+.btn-secundario {
+    background-color: #888;
+}
+
+.btn-secundario:hover {
+    background-color: #6f6f6f;
+}
+
+/* Botão de logout em tom de alerta. */
+.btn-logout {
+    background-color: #e8765a;
+    width: 100%;
+}
+
+.btn-logout:hover {
+    background-color: #d3604a;
+}
+
+/* Botão de remover (painel de administração). */
+.btn-remover {
+    margin-top: 0;
+    padding: 0.3em 0.8em;
+    background-color: #e8765a;
+    font-size: 0.85em;
+}
+
+.btn-remover:hover {
+    background-color: #d3604a;
+}
+
+/* Botões de ação na tabela de administração: tamanho compacto (igual ao Remover)
+   e espaçados entre si. As cores vêm das classes de cada botão. */
+.btn-acao {
+    margin-top: 0;
+    margin-right: 0.4em;
+    padding: 0.3em 0.8em;
+    font-size: 0.85em;
+}
+
+.btn-acao:last-child {
+    margin-right: 0;
+}
+
+/* Foto do utilizador na tabela de administração. */
+.admin-foto {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+/* Células do painel de administração centradas verticalmente. */
+#tabela-utilizadores td {
+    vertical-align: middle;
+}
+
+/* Mensagens de erro de validação. */
+.erro {
+    color: #c0392b;
+    font-size: 0.9em;
+    min-height: 1.2em;
+    margin-top: 0.5em;
+}
+
+/* Nota informativa (ex.: foto será removida ao guardar). */
+.info {
+    color: #555;
+    font-size: 0.85em;
+    font-style: italic;
+    margin-top: 0.3em;
+}
+
+/* Mensagem de sucesso (ex.: perfil gravado). */
+.sucesso {
+    color: #2e7d32;
+    background-color: #e6f4ea;
+    border: 1px solid #a5d6a7;
+    border-radius: 4px;
+    padding: 0.5em 0.8em;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 0.5em 0;
+}
+
+/* Cabeçalho do perfil (saudação + foto). */
+.perfil-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.perfil-foto {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0;
+    border: 2px solid rgb(90, 195, 178);
+}
+
+/* Lista de dados do perfil (rótulo + valor em duas colunas). */
+.perfil-dados {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.4em 1em;
+    margin: 1em 0;
+}
+
+.perfil-dados dt {
+    font-weight: bold;
+}
+
+.perfil-dados dd {
+    margin: 0;
+}

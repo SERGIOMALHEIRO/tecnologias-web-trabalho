@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Administração - Tecnologias de Aplicações Web</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Tecnologias de Aplicações Web</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="conta.html">A minha conta</a></li>
+            <li><a href="admin.html">Painel de Administração</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="conta-main">
+
+    <section class="largura-total">
+        <h2>Lista de Utilizadores Registados</h2>
+
+        <!-- A tabela é preenchida dinamicamente pelo admin.js -->
+        <table id="tabela-utilizadores">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="selecionar-todos" title="Selecionar todos"></th>
+                    <th>Foto</th>
+                    <th>Username</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>NIF</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="corpo-utilizadores"></tbody>
+        </table>
+
+        <p id="sem-utilizadores" class="erro escondido">Não existem utilizadores registados.</p>
+
+        <button type="button" class="btn btn-remover" id="remover-selecionados">Remover Selecionados</button>
+        
+    </section>
+    <button type="button" class="btn btn-logout" id="logout">Sair da Conta (Logout)</button>
+</main>
+<footer>
+    <p>&copy; C-ACADEMY 2025 Projeto Módulo de Tecnologias de Aplicações Web. Desenvolvido por Grupo 2 Carlos, Rafael e Sérgio.</p>
+</footer>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

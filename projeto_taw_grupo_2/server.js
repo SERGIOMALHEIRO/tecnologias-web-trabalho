@@ -6,15 +6,31 @@ const cors = require('cors');       // segurança do frontend
 const bcrypt = require('bcrypt');   // hashing de passwords
 const helmet = require('helmet');   // segurança geral
 const morgan = require('morgan');   // logging dos pedidos HTTP do cliente
+const path = require('path');       // para construir caminhos de ficheiros (pasta public)
 
 const PORT = process.env.PORT || 3000; 
 
 // Middlewares
-app.use(express.json()); // Configura o Express para processar pedidos que chegam ao servidor com o header Content-Type: application/json.
+// limit '10mb' -> permite fotos de perfil em base64 (o default de 100kb é pequeno demais)
+app.use(express.json({ limit: '10mb' })); // Processa pedidos com header Content-Type: application/json.
 
 app.use(cors());            // permitir todas as origens
 app.use(morgan('tiny'));    // presets que podem usar -> dev, combined, common, ou short
-app.use(helmet());          // cabeçalhos de resposta HTTP relacionados com a segurança
+// helmet com CSP ajustada: permite imagens em data: (fotos base64) e o iframe do YouTube.
+// referrerPolicy: envia a origem ao YouTube (necessário para o embed funcionar; senão dá "Erro 153").
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "img-src": ["'self'", "data:"],                  // permite fotos de perfil em base64
+            "frame-src": ["'self'", "https://www.youtube.com"], // permite o vídeo do index.html
+        },
+    },
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+}));
+
+// Servir ficheiros estáticos do frontend (HTML, CSS, JS, imagens) a partir da pasta 'public'
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas da API
 const authRoutes = require('./routes/authRoutes'); // Importar as rotas de autenticação

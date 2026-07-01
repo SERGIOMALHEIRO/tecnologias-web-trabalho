@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A minha conta - Tecnologias de Aplicações Web</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Tecnologias de Aplicações Web</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="conta.html">A minha conta</a></li>
+            <li><a href="admin.html">Painel de Administração</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="conta-main">
+
+    <!-- ECRÃ DE LOGIN -->
+    <section id="login-view" class="conta-card">
+        <h2>Login</h2>
+        <form id="login-form" novalidate>
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" name="username">
+
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="password">
+
+            <p class="erro" id="login-erro"></p>
+
+            <button type="submit" class="btn">Entrar</button>
+            <button type="button" class="btn" id="ir-registo">Mudar para Registo</button>
+        </form>
+    </section>
+
+    <!-- ECRÃ DE REGISTO -->
+    <section id="registo-view" class="conta-card escondido">
+        <h2>Registo de Novo Utilizador</h2>
+        <form id="registo-form" novalidate>
+            <label for="reg-username">Username:</label>
+            <input type="text" id="reg-username" name="username">
+
+            <label for="reg-password">Password:</label>
+            <input type="password" id="reg-password" name="password">
+
+            <label for="reg-foto">Foto de Perfil:</label>
+            <input type="file" id="reg-foto" name="foto" accept="image/*">
+
+            <label for="reg-nome">Nome:</label>
+            <input type="text" id="reg-nome" name="nome">
+
+            <label for="reg-email">Email:</label>
+            <input type="email" id="reg-email" name="email">
+
+            <label for="reg-telemovel">Telemóvel:</label>
+            <input type="text" id="reg-telemovel" name="telemovel">
+
+            <label for="reg-nif">NIF (9 dígitos):</label>
+            <input type="text" id="reg-nif" name="nif">
+
+            <label for="reg-morada">Morada:</label>
+            <input type="text" id="reg-morada" name="morada">
+
+            <p class="erro" id="registo-erro"></p>
+
+            <button type="submit" class="btn">Register</button>
+            <button type="button" class="btn" id="ir-login">Mudar para Login</button>
+        </form>
+    </section>
+
+    <!-- ECRÃ DE PERFIL -->
+    <section id="perfil-view" class="conta-card escondido">
+        <div class="perfil-cabecalho">
+            <h2 id="perfil-saudacao">Olá</h2>
+            <img id="perfil-foto" class="perfil-foto" src="" alt="Foto de perfil">
+        </div>
+
+        <!-- Aviso de sucesso após guardar a edição do perfil. -->
+        <p id="perfil-sucesso" class="sucesso escondido">Perfil gravado com sucesso!</p>
+
+        <dl class="perfil-dados">
+            <dt>Nome:</dt>      <dd id="perfil-nome"></dd>
+            <dt>Email:</dt>     <dd id="perfil-email"></dd>
+            <dt>Telemóvel:</dt> <dd id="perfil-telemovel"></dd>
+            <dt>Username:</dt>  <dd id="perfil-username"></dd>
+            <dt>NIF:</dt>       <dd id="perfil-nif"></dd>
+            <dt>Morada:</dt>    <dd id="perfil-morada"></dd>
+        </dl>
+
+        <!-- Formulário de edição do perfil (escondido até clicar em Editar). -->
+        <form id="editar-form" class="escondido" novalidate>
+            <label for="edit-nome">Nome:</label>
+            <input type="text" id="edit-nome" name="nome">
+
+            <label for="edit-email">Email:</label>
+            <input type="email" id="edit-email" name="email">
+
+            <label for="edit-telemovel">Telemóvel:</label>
+            <input type="text" id="edit-telemovel" name="telemovel">
+
+            <label for="edit-nif">NIF (9 dígitos):</label>
+            <input type="text" id="edit-nif" name="nif">
+
+            <label for="edit-morada">Morada:</label>
+            <input type="text" id="edit-morada" name="morada">
+
+            <label for="edit-password">Nova Password (deixe vazio para manter a atual):</label>
+            <input type="password" id="edit-password" name="password" autocomplete="new-password">
+
+            <label for="edit-foto">Mudar foto de perfil:</label>
+            <input type="file" id="edit-foto" name="foto" accept="image/*">
+            <button type="button" class="btn btn-secundario" id="limpar-foto">Limpar Foto</button>
+            <p class="info escondido" id="foto-info">A foto será removida ao guardar.</p>
+
+            <p class="erro" id="editar-erro"></p>
+
+            <button type="submit" class="btn">Guardar Alterações</button>
+            <button type="button" class="btn btn-secundario" id="cancelar-edicao">Cancelar</button>
+        </form>
+
+        <button type="button" class="btn" id="editar-perfil">Editar Perfil</button>
+        <button type="button" class="btn btn-logout" id="logout">Sair da Conta (Logout)</button>
+    </section>
+
+</main>
+<footer>
+    <p>&copy; C-ACADEMY 2025 Projeto Módulo de Tecnologias de Aplicações Web. Desenvolvido por Grupo 2 Carlos, Rafael e Sérgio.</p>
+</footer>
+
+<script src="js/conta.js"></script>
+</body>
+</html>

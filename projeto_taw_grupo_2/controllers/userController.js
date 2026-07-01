@@ -56,7 +56,21 @@ exports.updateUser = async (req, res) => {
             delete updates.isAdmin;
         }
 
-        // Se a password for atualizada, 
+        // Proteção: não deixar retirar privilégios ao ÚLTIMO administrador.
+        if (updates.isAdmin === false) {
+            const alvo = await User.findById(req.params.id);
+            if (alvo && alvo.isAdmin) {
+                const totalAdmins = await User.countDocuments({ isAdmin: true });
+                if (totalAdmins <= 1) {
+                    return res.status(409).json({
+                        success: false,
+                        message: 'Não é possível retirar o único administrador. Atribua primeiro outro administrador.'
+                    });
+                }
+            }
+        }
+
+        // Se a password for atualizada,
         // é encriptada antes de guardar
         if (updates.password) {
             updates.password = await bcrypt.hash(updates.password, SALT_ROUNDS);
@@ -83,11 +97,23 @@ exports.updateUser = async (req, res) => {
 //  (apenas admin)
 exports.deleteUser = async (req, res) => {
     try {
-        const deletedUser = await User.findByIdAndDelete(req.params.id);
-        if (!deletedUser) {
+        const alvo = await User.findById(req.params.id);
+        if (!alvo) {
             return res.status(404).json({ success: false, message: 'Utilizador não encontrado.' });
         }
 
+        // Proteção: não deixar remover o ÚLTIMO administrador.
+        if (alvo.isAdmin) {
+            const totalAdmins = await User.countDocuments({ isAdmin: true });
+            if (totalAdmins <= 1) {
+                return res.status(409).json({
+                    success: false,
+                    message: 'Não é possível remover o único administrador. Atribua primeiro outro administrador.'
+                });
+            }
+        }
+
+        await User.findByIdAndDelete(req.params.id);
         res.status(200).json({ success: true, message: 'Utilizador apagado com sucesso.' });
     } catch (error) {
         console.error("Erro ao apagar utilizador:", error);
